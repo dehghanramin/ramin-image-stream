@@ -1,0 +1,41 @@
+name: ramin-image-stream
+summary: a sample hello world echo program
+description: |
+      An applet to stream pi camera over http.
+version: '0.1.0'
+base: core22
+confinement: strict
+architectures:
+  - build-on: arm64
+
+
+apps:
+  ramin-image-stream:
+    command: bin/flask-wrapper
+    daemon: simple
+    restart-condition: always
+    plugs: [
+      home,
+      network,
+      network-bind,
+      opengl,
+      camera
+    ]
+    environment:
+      FLASK_APP: ./server.py
+      LC_ALL: C.UTF-8
+      LANG: C.UTF-8
+
+
+parts:
+  python-packages:
+    plugin: python
+    source: .
+    python-requirements: ['requirements.txt']
+  
+  flask-server:
+    plugin: dump
+    source: .
+    organize:
+      server.py: bin/
+      flask-wrapper: bin/
