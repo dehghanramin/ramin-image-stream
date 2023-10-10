@@ -2,7 +2,7 @@ name: ramin-image-stream
 summary: a sample hello world echo program
 description: |
       An applet to stream pi camera over http.
-version: '0.1.2'
+version: '0.1.4'
 base: core22
 confinement: strict
 architectures:
