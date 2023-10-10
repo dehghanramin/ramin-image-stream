@@ -9,6 +9,20 @@ architectures:
   - build-on: arm64
 
 
+slots:
+  pi-camera:
+    interface: custom-device
+    custom-device: pi-camera-device
+    devices:
+      - /dev/video0
+
+
+plugs:
+  pi-camera:
+    interface: custom-device
+    custom-device: pi-camera-device
+
+
 apps:
   ramin-image-stream:
     command: bin/flask-wrapper
@@ -19,7 +33,9 @@ apps:
       network,
       network-bind,
       opengl,
-      camera
+      camera,
+      custom-device,
+      pi-camera
     ]
     environment:
       FLASK_APP: ./server.py
