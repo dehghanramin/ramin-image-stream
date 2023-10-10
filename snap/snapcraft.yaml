@@ -1,26 +1,12 @@
 name: ramin-image-stream
-summary: a sample hello world echo program
+summary: An applet to stream pi camera over http.
 description: |
       An applet to stream pi camera over http.
-version: '0.1.4'
+version: '0.1.5'
 base: core22
 confinement: strict
 architectures:
   - build-on: arm64
-
-
-slots:
-  pi-camera:
-    interface: custom-device
-    custom-device: pi-camera-device
-    devices:
-      - /dev/video0
-
-
-plugs:
-  pi-camera:
-    interface: custom-device
-    custom-device: pi-camera-device
 
 
 apps:
@@ -34,8 +20,7 @@ apps:
       network-bind,
       opengl,
       camera,
-      custom-device,
-      pi-camera
+      block-devices
     ]
     environment:
       FLASK_APP: ./server.py
