@@ -16,7 +16,7 @@ info = __info
 
 # Define stream capture
 def get_frame():
-    camera=cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)
+    camera=cv2.VideoCapture(0)
     success, frame = camera.read()
     if not success:
         return "No Image"

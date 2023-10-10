@@ -1,2 +1,2 @@
 #!/bin/sh -e
-snapctl set port=8080
+snapctl set port=80
