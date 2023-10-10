@@ -16,7 +16,10 @@ info = __info
 
 # Define stream capture
 def get_frame():
-    camera=cv2.VideoCapture(0)
+    camera=cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)
+
+    camera.set(cv2.CAP_PROP_FRAME_WIDTH, 426)
+    camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
 
     while True:
         success, frame = camera.read()
@@ -58,6 +61,7 @@ def metrics():
 # Stream video
 @application.route('/video')
 def video():
+     counter_metric.inc()
      return Response(get_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
