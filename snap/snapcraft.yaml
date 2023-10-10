@@ -2,7 +2,7 @@ name: ramin-image-stream
 summary: An applet to stream pi camera over http.
 description: |
       An applet to stream pi camera over http.
-version: '0.1.5'
+version: git
 base: core22
 confinement: strict
 architectures:
