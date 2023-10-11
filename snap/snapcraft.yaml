@@ -43,7 +43,11 @@ parts:
       libsm6,
       libx11-6,
       libxext6,
-      libxcb1
+      libxcb1,
+      libatlas-base-dev,
+      ffmpeg,
+      libopenjp2-7,
+      libcamera
     ]
 
   flask-server:
