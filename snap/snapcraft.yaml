@@ -47,7 +47,7 @@ parts:
       libatlas-base-dev,
       ffmpeg,
       libopenjp2-7,
-      libcamera
+      libcamera0
     ]
 
   flask-server:
