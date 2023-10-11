@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 from flask import Flask, jsonify, Response
 from prometheus_client import Counter, generate_latest, CONTENT_TYPE_LATEST
-from io import BytesIO
 from time import sleep
-from picamera import PiCamera
+from picamera2 import Picamera2
 from PIL import Image
 import cv2
 
@@ -27,13 +26,11 @@ def get_frame():
     # ret, buffer = cv2.imencode('.jpg', frame)
     # rame = buffer.tobytes()
     # camera.release()
-    stream = BytesIO()
-    camera = PiCamera()
-    camera.start_preview()
-    sleep(2)
-    camera.capture(stream, 'jpeg')
-    stream.seek(0)
-    image = Image.open(stream)
+    camera = Picamera2()
+    camera.start()
+    sleep(1)
+    image = camera.capture_image('main')
+    image = Image.open(image)
     yield (b'--frame\r\n'
            b'Content-Type: image/jpeg\r\n\r\n' + image + b'\r\n')
 
