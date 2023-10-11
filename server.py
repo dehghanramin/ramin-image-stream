@@ -2,20 +2,30 @@
 from flask import Flask, jsonify, Response
 from prometheus_client import Counter, generate_latest, CONTENT_TYPE_LATEST
 from time import sleep
+import syslog
+import traceback
 from picamera2 import Picamera2
 from PIL import Image
 import cv2
 
+
 # Define a counter metric
-counter_metric = Counter('microsample_calls_total', 'Total calls to microsampl api (counter)')
+counter_metric = Counter('ramin-image-stream_calls_total', 'Total calls to ramin-iamge-stream (counter)')
 
 __info = {
     'name': 'Ramin Dehghan',
     'email': 'online@wolog.org',
-    'title': 'dev'
+    'title': 'dev',
+    'description': 'An applet to stream pi camera over http.'
 }
 
 info = __info
+
+
+# Define logging service
+def log(_priority, _message):
+    syslog.syslog(_priority, _message)
+
 
 # Define stream capture
 def get_frame():
@@ -26,16 +36,27 @@ def get_frame():
     # ret, buffer = cv2.imencode('.jpg', frame)
     # rame = buffer.tobytes()
     # camera.release()
-    camera = Picamera2()
-    camera.start()
-    sleep(1)
-    image = camera.capture_image('main')
-    image = Image.open(image)
-    yield (b'--frame\r\n'
-           b'Content-Type: image/jpeg\r\n\r\n' + image + b'\r\n')
+    try:
+        camera = Picamera2()
+        camera.start()
+        sleep(2)
+        image = camera.capture_image('main')
+        #image = Image.open(image)
+        ret, image = cv2.imencode('.jpg', image)
+        image = image.tobytes()
+    except Exception as e:
+        log(syslog.LOG_ERR, traceback.format_exc())
+        log(syslog.LOG_ERR, type(e))
+        log(syslog.LOG_ERR, e.args)
+        log(syslog.LOG_ERR, e)
+        yield (type(e) + '\n' + e.args + '\n' + traceback.format_exc())
+    finally:
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + image + b'\r\n')
 
 
 application = Flask(__name__)
+
 
 @application.route('/')
 def index():
