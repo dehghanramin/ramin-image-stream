@@ -19,8 +19,7 @@ apps:
       network,
       network-bind,
       opengl,
-      camera,
-      block-devices
+      camera
     ]
     environment:
       FLASK_APP: ./server.py
