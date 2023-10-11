@@ -39,7 +39,7 @@ parts:
       libx11-6,
       libxext6,
       libxcb1,
-      libcap-devel
+      libcap-dev
     ]
 
   flask-server:
