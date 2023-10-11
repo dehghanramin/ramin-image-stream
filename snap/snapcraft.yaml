@@ -31,15 +31,19 @@ parts:
   python-packages:
     plugin: python
     source: .
-    python-requirements: ['requirements.txt']
+    python-requirements: [
+      'requirements.txt'
+    ]
+    build-packages: [
+      libcap-dev
+    ]
     stage-packages: [
       libgl1,
       libice6,
       libsm6,
       libx11-6,
       libxext6,
-      libxcb1,
-      libcap-dev
+      libxcb1
     ]
 
   flask-server:
