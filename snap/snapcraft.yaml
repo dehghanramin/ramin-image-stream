@@ -62,7 +62,7 @@ parts:
   libcamera:
     plugin: meson
     meson-parameters: [
-      '--libdir=/usr/lib',
+      '--libdir=/usr/local/lib',
       '-D pycamera=enabled'
     ]
     source: https://github.com/FC-Rover/libcamera.git
