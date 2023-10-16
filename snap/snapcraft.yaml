@@ -66,7 +66,7 @@ parts:
       '-D pycamera=enabled'
     ]
     source: https://github.com/FC-Rover/libcamera.git
-    build-pacakges: [
+    build-packages: [
       build-essential,
       meson,
       ninja-build,
