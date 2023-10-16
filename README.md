@@ -3,3 +3,6 @@
 
 ### Strcuture
 The applet is a snap designed to be deployed on **Ubuntu Core** systems running on Raspberry Pis.
+
+### Libcamera
+We built libcamera with python bindings to make picamera2 library work.
