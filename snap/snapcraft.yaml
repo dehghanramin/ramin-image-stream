@@ -102,3 +102,6 @@ parts:
       libevent-dev,
       abi-compliance-checker
     ]
+    override-build: |
+      meson setup build --libdir=/usr/local/lib -D pycamera=enabled
+      ninja -C build install
