@@ -1,7 +1,7 @@
 name: ramin-image-stream
 summary: An applet to stream pi camera over http.
 description: |
-      An applet to stream pi camera over http.
+  An applet to stream pi camera over http.
 version: git
 base: core22
 confinement: strict
@@ -103,5 +103,5 @@ parts:
       abi-compliance-checker
     ]
     override-build: |
-      meson setup build --libdir=/usr/local/lib -D pycamera=enabled
+      meson setup build --prefix=$SNAPCRAFT_PART_INSTALL/ --libdir=$SNAPCRAFT_PART_INSTALL/lib -D pycamera=enabled
       ninja -C build install
