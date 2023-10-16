@@ -99,6 +99,6 @@ parts:
       abi-compliance-checker
     ]
     override-build: |
-      cp $CRAFT_PART_SRC/* $CRAFT_PART_BUILD/*
+      cp -r $CRAFT_PART_SRC/* $CRAFT_PART_BUILD/
       meson setup build --prefix=/usr --libdir=/usr/lib -D pycamera=enabled
       ninja -C build install
