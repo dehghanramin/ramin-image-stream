@@ -61,10 +61,6 @@ parts:
 
   libcamera:
     plugin: meson
-    meson-parameters: [
-      '--libdir=/usr/local/lib',
-      '-D pycamera=enabled'
-    ]
     source: https://github.com/FC-Rover/libcamera.git
     build-packages: [
       build-essential,
@@ -103,5 +99,6 @@ parts:
       abi-compliance-checker
     ]
     override-build: |
-      meson setup build --prefix=$SNAPCRAFT_PART_INSTALL/ --libdir=$SNAPCRAFT_PART_INSTALL/lib -D pycamera=enabled
+      cp $CRAFT_PART_SRC/* $CRAFT_PART_BUILD/*
+      meson setup build --prefix=/usr --libdir=/usr/lib -D pycamera=enabled
       ninja -C build install
