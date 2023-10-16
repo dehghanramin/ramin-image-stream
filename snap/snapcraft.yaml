@@ -37,6 +37,9 @@ parts:
     build-packages: [
       libcap-dev
     ]
+    after: [
+      libcamera
+    ]
     stage-packages: [
       libgl1,
       libice6,
@@ -46,8 +49,7 @@ parts:
       libxcb1,
       libatlas-base-dev,
       ffmpeg,
-      libopenjp2-7,
-      libcamera-dev
+      libopenjp2-7
     ]
 
   flask-server:
@@ -56,3 +58,47 @@ parts:
     organize:
       server.py: bin/
       flask-wrapper: bin/
+
+  libcamera:
+    plugin: meson
+    meson-parameters: [
+      '--libdir=/usr/lib',
+      '-D pycamera=enabled'
+    ]
+    source: https://github.com/FC-Rover/libcamera.git
+    build-pacakges: [
+      build-essential,
+      meson,
+      ninja-build,
+      pkg-config,
+      libyaml-dev,
+      python3-yaml,
+      python3-ply,
+      python3-jinja2,
+      libgnutls28-dev,
+      libssl-dev,
+      openssl,
+      libdw-dev,
+      libunwind-dev,
+      libudev-dev,
+      python3-sphinx,
+      graphviz,
+      texlive-latex-extra,
+      libgstreamer1.0-dev,
+      libgstreamer-plugins-base1.0-dev,
+      libdrm-dev,
+      libjpeg-dev,
+      libsdl2-dev,
+      qtbase5-dev,
+      libqt5core5a,
+      libqt5gui5,
+      libqt5widgets5,
+      qttools5-dev-tools,
+      libtiff-dev,
+      liblttng-ust-dev,
+      lttng-tools,
+      libexif-dev,
+      libjpeg-dev,
+      libevent-dev,
+      abi-compliance-checker
+    ]
