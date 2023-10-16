@@ -6,3 +6,6 @@ The applet is a snap designed to be deployed on **Ubuntu Core** systems running 
 
 ### Libcamera
 We built libcamera with python bindings to make picamera2 library work.
+
+### Contact
+Please report any bugs to Ramin!
