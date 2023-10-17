@@ -67,8 +67,6 @@ parts:
       "--libdir=$CRAFT_PART_INSTALL/lib",
       "-D pycamera=enabled"
     ]
-    build-environment:
-      - DESTDIR: "$CRAFT_PART_INSTALL"
     build-packages: [
       build-essential,
       meson,
@@ -111,5 +109,6 @@ parts:
     ]
     override-build: |
       cp -r $CRAFT_PART_SRC/* $CRAFT_PART_BUILD/
-      meson setup build --prefix=$CRAFT_PART_INSTALL --libdir=$CRAFT_PART_INSTALL/lib -D pycamera=enabled
+      meson setup build --prefix=$CRAFT_PROJECT_DIR/usr --libdir=$CRAFT_PROJECT_DIR/lib -D pycamera=enabled
+#      meson setup build --libdir=/lib -D pycamera=enabled
       ninja -C build install
