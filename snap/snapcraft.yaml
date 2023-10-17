@@ -110,4 +110,5 @@ parts:
       cp -r $CRAFT_PART_SRC/* $CRAFT_PART_BUILD/
       meson setup build --libdir=/usr/local/lib -D pycamera=enabled
       ninja -C build install
-      ln -s /usr/local/lib/python3.10/site-packages/libcamera /lib/python3.10/site-packages/libcamera
+      pylibdir=$(python3 -m site | grep "sys.path" -A 1 | sed -n "s/.*'\([^']*\)'.*/\1/p")
+      ln -s /usr/local/lib/python3.10/site-packages/libcamera $pylibdir/libcamera
