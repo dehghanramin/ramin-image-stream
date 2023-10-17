@@ -108,5 +108,6 @@ parts:
     ]
     override-build: |
       cp -r $CRAFT_PART_SRC/* $CRAFT_PART_BUILD/
-      meson setup build --libdir=/lib -D pycamera=enabled
+      meson setup build --libdir=/usr/local/lib -D pycamera=enabled
       ninja -C build install
+      ln -s /usr/local/lib/python3.10/site-packages/libcamera /lib/python3.10/site-packages/libcamera
