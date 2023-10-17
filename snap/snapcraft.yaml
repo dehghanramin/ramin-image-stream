@@ -63,9 +63,9 @@ parts:
     plugin: meson
     source: https://github.com/FC-Rover/libcamera.git
     meson-parameters: [
-      --prefix=$CRAFT_PART_INSTALL,
-      --libdir=$CRAFT_PART_INSTALL/lib,
-      -D pycamera=enabled
+      '--prefix=$CRAFT_PART_INSTALL',
+      '--libdir=$CRAFT_PART_INSTALL/lib',
+      '-D pycamera=enabled'
     ]
     build-packages: [
       build-essential,
