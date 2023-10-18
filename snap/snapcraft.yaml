@@ -62,10 +62,11 @@ parts:
   libcamera:
     plugin: meson
     source: https://github.com/FC-Rover/libcamera.git
-    meson-parameters: [
-      '--libdir=/lib',
-      '-D pycamera=enabled'
-    ]
+    meson-parameters:
+      - --prefix=/snap/ramin-image-stream/current/usr
+      - -D pycamera=enabled
+    organize:
+      snap/ramin-image-stream/current/usr: usr
     build-packages: [
       build-essential,
       meson,
@@ -106,7 +107,3 @@ parts:
       libevent-dev,
       abi-compliance-checker
     ]
-    override-build: |
-      cp -r $CRAFT_PART_SRC/* $CRAFT_PART_BUILD/
-      meson setup build --prefix=$CRAFT_PART_INSTALL/usr -D pycamera=enabled
-      ninja -C build install
