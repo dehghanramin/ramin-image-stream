@@ -64,7 +64,6 @@ parts:
     source: https://github.com/FC-Rover/libcamera.git
     meson-parameters: [
       '--prefix=/snap/ramin-image-stream/current/usr',
-      '--libdir=/snap/ramin-image-stream/current/lib',
       '-Dpycamera=enabled'
     ]
     organize:
