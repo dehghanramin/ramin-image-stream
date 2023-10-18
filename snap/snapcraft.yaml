@@ -67,7 +67,8 @@ parts:
       '-Dpycamera=enabled'
     ]
     organize:
-      snap/ramin-image-stream/current/usr: usr
+      - snap/ramin-image-stream/current/usr: usr
+      - snap/ramin-image-stream/current/lib: lib
     build-packages: [
       build-essential,
       meson,
