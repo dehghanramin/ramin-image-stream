@@ -109,6 +109,6 @@ parts:
       libevent-dev,
       abi-compliance-checker
     ]
-    site-packages: [
+    stage-packages: [
       liblttng-ust1
     ]
