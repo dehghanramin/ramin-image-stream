@@ -111,5 +111,16 @@ parts:
     ]
     stage-packages: [
       liblttng-ust1,
-      libdw1
+      libdw1,
+      libssl3,
+      libunwind8,
+      libudev1,
+      libgstreamer1.0-0,
+      libgstreamer-plugins-base1.0-0,
+      libdrm2,
+      libjpeg8,
+      libsdl2-2.0-0,
+      libevent-2.1-7a,
+      libexif12,
+      libtiff5
     ]
