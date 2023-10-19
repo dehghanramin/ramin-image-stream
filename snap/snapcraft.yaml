@@ -120,7 +120,7 @@ parts:
       libdrm2,
       libjpeg8,
       libsdl2-2.0-0,
-      libevent-2.1-7a,
+      libevent-2.1-7,
       libexif12,
       libtiff5
     ]
