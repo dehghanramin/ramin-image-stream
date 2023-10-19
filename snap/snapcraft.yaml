@@ -38,7 +38,8 @@ parts:
       libcap-dev
     ]
     after: [
-      libcamera
+      libcamera,
+      pykms
     ]
     stage-packages: [
       libgl1,
