@@ -10,7 +10,7 @@ import cv2
 
 
 # Define a counter metric
-counter_metric = Counter('ramin-image-stream_calls_total', 'Total calls to ramin-iamge-stream (counter)')
+counter_metric = Counter('ramin_image_stream_calls_total', 'Total calls to ramin iamge stream (counter)')
 
 __info = {
     'name': 'Ramin Dehghan',
@@ -83,8 +83,8 @@ def metrics():
 # Stream video
 @application.route('/video')
 def video():
-     counter_metric.inc()
-     return Response(get_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    counter_metric.inc()
+    return Response(get_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 def main():
