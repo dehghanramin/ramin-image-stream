@@ -110,5 +110,6 @@ parts:
       abi-compliance-checker
     ]
     stage-packages: [
-      liblttng-ust1
+      liblttng-ust1,
+      libdw1
     ]
