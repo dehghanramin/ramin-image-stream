@@ -124,3 +124,18 @@ parts:
       libexif12,
       libtiff5
     ]
+
+  pykms:
+    plugin: meson
+    source: https://github.com/dehghanramin/kmsxx.git
+    meson-parameters: [
+      '--prefix=/snap/ramin-image-stream/current/usr'
+    ]
+    organize:
+      snap/ramin-image-stream/current/usr: usr
+      snap/ramin-image-stream/current/lib: lib
+    build-packages: [
+      libdrm-dev,
+      libdrm2,
+      libfmt-dev
+    ]
