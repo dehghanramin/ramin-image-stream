@@ -140,3 +140,6 @@ parts:
       libdrm2,
       libfmt-dev
     ]
+    stage-packages: [
+      libfmt8
+    ]
