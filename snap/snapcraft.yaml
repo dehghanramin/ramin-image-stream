@@ -109,3 +109,6 @@ parts:
       libevent-dev,
       abi-compliance-checker
     ]
+    site-packages: [
+      liblttng-ust1
+    ]
