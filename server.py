@@ -45,11 +45,11 @@ def get_frame():
         ret, image = cv2.imencode('.jpg', image)
         image = image.tobytes()
     except Exception as e:
-        log(syslog.LOG_ERR, traceback.format_exc())
-        log(syslog.LOG_ERR, type(e))
-        log(syslog.LOG_ERR, e.args)
-        log(syslog.LOG_ERR, e)
-        yield (type(e) + '\n' + e.args + '\n' + traceback.format_exc())
+        log(syslog.LOG_ERR, str(traceback.format_exc()))
+        log(syslog.LOG_ERR, str(type(e)))
+        log(syslog.LOG_ERR, str(e.args))
+        log(syslog.LOG_ERR, str(e))
+        yield (type(e) + '\n' + str(e.args) + '\n' + str(traceback.format_exc()))
     finally:
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + image + b'\r\n')

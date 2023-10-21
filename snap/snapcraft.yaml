@@ -9,17 +9,33 @@ architectures:
   - build-on: arm64
 
 
+plugs:
+  sysfs-mount:
+    interface: system-files
+    read: [
+      '/sys/subsystem/media/devices',
+      '/sys/bus/media/devices',
+      '/sys/class/media/devices'
+    ]
+    write: [
+      '/sys/subsystem/media/devices',
+      '/sys/bus/media/devices',
+      '/sys/class/media/devices'
+    ]
+
+
 apps:
   ramin-image-stream:
     command: bin/flask-wrapper
     daemon: simple
     restart-condition: always
     plugs: [
-      home,
+      mount-observe,
+      sysfs-mount,
+      camera,
       network,
       network-bind,
-      opengl,
-      camera
+      opengl
     ]
     environment:
       FLASK_APP: ./server.py
