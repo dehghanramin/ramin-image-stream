@@ -10,33 +10,22 @@ architectures:
 
 
 plugs:
-  sysfs-mount:
-    interface: system-files
-    read: [
-      '/sys/subsystem/media/devices',
-      '/sys/bus/media/devices',
-      '/sys/class/media/devices'
-    ]
-    write: [
-      '/sys/subsystem/media/devices',
-      '/sys/bus/media/devices',
-      '/sys/class/media/devices'
-    ]
+  camera-media:
+    interface: custom-device
+    custom-device: camera-media-device
 
 
 apps:
   ramin-image-stream:
     command: bin/flask-wrapper
     daemon: simple
-    restart-condition: always
-    plugs: [
-      mount-observe,
-      sysfs-mount,
-      camera,
-      network,
-      network-bind,
-      opengl
-    ]
+    restart-condition: on-failure
+    plugs:
+      - mount-observe
+      - camera-media
+      - network
+      - network-bind
+      - opengl
     environment:
       FLASK_APP: ./server.py
       LC_ALL: C.UTF-8
@@ -47,27 +36,23 @@ parts:
   python-packages:
     plugin: python
     source: .
-    python-requirements: [
-      'requirements.txt'
-    ]
-    build-packages: [
-      libcap-dev
-    ]
-    after: [
-      libcamera,
-      pykms
-    ]
-    stage-packages: [
-      libgl1,
-      libice6,
-      libsm6,
-      libx11-6,
-      libxext6,
-      libxcb1,
-      libatlas-base-dev,
-      ffmpeg,
-      libopenjp2-7
-    ]
+    python-requirements:
+      - requirements.txt
+    build-packages:
+      - libcap-dev
+    after:
+      - libcamera
+      - pykms
+    stage-packages:
+      - libgl1
+      - libice6
+      - libsm6
+      - libx11-6
+      - libxext6
+      - libxcb1
+      - libatlas-base-dev
+      - ffmpeg
+      - libopenjp2-7
 
   flask-server:
     plugin: dump
@@ -79,83 +64,76 @@ parts:
   libcamera:
     plugin: meson
     source: https://github.com/FC-Rover/libcamera.git
-    meson-parameters: [
-      '--prefix=/snap/ramin-image-stream/current/usr',
-      '-Dpycamera=enabled'
-    ]
+    meson-parameters:
+      - --prefix=/snap/ramin-image-stream/current/usr
+      - -Dpycamera=enabled
     organize:
       snap/ramin-image-stream/current/usr: usr
       snap/ramin-image-stream/current/lib: lib
-    build-packages: [
-      build-essential,
-      meson,
-      ninja-build,
-      pkg-config,
-      pybind11-dev,
-      python3-pybind11,
-      cmake,
-      libgtest-dev,
-      libyaml-dev,
-      python3-yaml,
-      python3-ply,
-      python3-jinja2,
-      libgnutls28-dev,
-      libssl-dev,
-      openssl,
-      libdw-dev,
-      libunwind-dev,
-      libudev-dev,
-      python3-sphinx,
-      graphviz,
-      texlive-latex-extra,
-      libgstreamer1.0-dev,
-      libgstreamer-plugins-base1.0-dev,
-      libdrm-dev,
-      libjpeg-dev,
-      libsdl2-dev,
-      qtbase5-dev,
-      libqt5core5a,
-      libqt5gui5,
-      libqt5widgets5,
-      qttools5-dev-tools,
-      libtiff-dev,
-      liblttng-ust-dev,
-      lttng-tools,
-      libexif-dev,
-      libjpeg-dev,
-      libevent-dev,
-      abi-compliance-checker
-    ]
-    stage-packages: [
-      liblttng-ust1,
-      libdw1,
-      libssl3,
-      libunwind8,
-      libudev1,
-      libgstreamer1.0-0,
-      libgstreamer-plugins-base1.0-0,
-      libdrm2,
-      libjpeg8,
-      libsdl2-2.0-0,
-      libevent-2.1-7,
-      libexif12,
-      libtiff5
-    ]
+    build-packages:
+      - build-essential
+      - meson
+      - ninja-build
+      - pkg-config
+      - pybind11-dev
+      - python3-pybind11
+      - cmake
+      - libgtest-dev
+      - libyaml-dev
+      - python3-yaml
+      - python3-ply
+      - python3-jinja2
+      - libgnutls28-dev
+      - libssl-dev
+      - openssl
+      - libdw-dev
+      - libunwind-dev
+      - libudev-dev
+      - python3-sphinx
+      - graphviz
+      - texlive-latex-extra
+      - libgstreamer1.0-dev
+      - libgstreamer-plugins-base1.0-dev
+      - libdrm-dev
+      - libjpeg-dev
+      - libsdl2-dev
+      - qtbase5-dev
+      - libqt5core5a
+      - libqt5gui5
+      - libqt5widgets5
+      - qttools5-dev-tools
+      - libtiff-dev
+      - liblttng-ust-dev
+      - lttng-tools
+      - libexif-dev
+      - libevent-dev
+      - abi-compliance-checker
+    stage-packages:
+      - liblttng-ust1
+      - libdw1
+      - libssl3
+      - libunwind8
+      - libudev1
+      - libgstreamer1.0-0
+      - libgstreamer-plugins-base1.0-0
+      - libdrm2
+      - libjpeg8
+      - libsdl2-2.0-0
+      - libevent-2.1-7
+      - libexif12
+      - libtiff5
 
   pykms:
     plugin: meson
     source: https://github.com/dehghanramin/kmsxx.git
-    meson-parameters: [
-      '--prefix=/snap/ramin-image-stream/current/usr'
-    ]
+    meson-parameters:
+      - --prefix=/snap/ramin-image-stream/current/usr
     organize:
       snap/ramin-image-stream/current/usr: usr
       snap/ramin-image-stream/current/lib: lib
-    build-packages: [
-      libdrm-dev,
-      libdrm2,
-      libfmt-dev
-    ]
-    stage-packages: [
-      libfmt8
-    ]
+    build-packages:
+      - libdrm-dev
+      - libdrm2
+      - libfmt-dev
+    stage-packages:
+      - libfmt8
