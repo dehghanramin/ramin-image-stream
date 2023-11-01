@@ -8,7 +8,6 @@ from picamera2 import Picamera2
 from PIL import Image
 import cv2
 
-
 # Define a counter metric
 counter_metric = Counter('ramin_image_stream_calls_total', 'Total calls to ramin iamge stream (counter)')
 
@@ -38,10 +37,13 @@ def get_frame():
     # camera.release()
     try:
         camera = Picamera2()
+        config = camera.create_still_configuration()
+        camera.configure(config)
         camera.start()
         sleep(2)
         image = camera.capture_image('main')
-        #image = Image.open(image)
+        camera.stop()
+        # image = Image.open(image)
         ret, image = cv2.imencode('.jpg', image)
         image = image.tobytes()
     except Exception as e:

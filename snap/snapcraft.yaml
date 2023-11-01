@@ -14,6 +14,13 @@ plugs:
     interface: custom-device
     custom-device: camera-media-device
 
+  sysfs-mount:
+    interface: system-files
+    read:
+      - /sys/subsystem/media/devices
+      - /sys/bus/media/devices
+      - /sys/class/media/devices
+
 
 apps:
   ramin-image-stream:
@@ -26,6 +33,7 @@ apps:
       - network
       - network-bind
       - opengl
+      - camera
     environment:
       FLASK_APP: ./server.py
       LC_ALL: C.UTF-8
