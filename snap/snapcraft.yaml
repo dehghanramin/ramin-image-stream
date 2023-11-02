@@ -71,7 +71,7 @@ parts:
 
   libcamera:
     plugin: meson
-    source: https://github.com/raspberrypi/libcamera.git
+    source: https://github.com/dehghanramin/libcamera.git
     meson-parameters:
       - --prefix=/snap/ramin-image-stream/current/usr
       - --buildtype=release
