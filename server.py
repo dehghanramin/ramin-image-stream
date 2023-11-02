@@ -39,7 +39,7 @@ def get_frame():
         camera = Picamera2()
         config = camera.create_still_configuration()
         camera.configure(config)
-        camera.start_preview(Preview=NULL)
+        camera.start()
         sleep(2)
         image = camera.capture_image('main')
         camera.stop()

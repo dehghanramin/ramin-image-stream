@@ -71,7 +71,7 @@ parts:
 
   libcamera:
     plugin: meson
-    source: https://github.com/FC-Rover/libcamera.git
+    source: https://github.com/raspberrypi/libcamera.git
     meson-parameters:
       - --prefix=/snap/ramin-image-stream/current/usr
       - --buildtype=release
@@ -126,6 +126,7 @@ parts:
       - libexif-dev
       - libevent-dev
       - abi-compliance-checker
+      - libboost-all-dev
     stage-packages:
       - liblttng-ust1
       - libdw1
