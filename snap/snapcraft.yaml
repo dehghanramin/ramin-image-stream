@@ -32,6 +32,8 @@ apps:
       - camera-media
       - network
       - network-bind
+      - media-control
+      - hardware-observe
       - opengl
       - camera
     environment:
