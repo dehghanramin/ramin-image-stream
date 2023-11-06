@@ -6,7 +6,7 @@ import syslog
 import traceback
 from picamera2 import Picamera2
 from PIL import Image
-import cv2
+from io import BytesIO
 
 # Define a counter metric
 counter_metric = Counter('ramin_image_stream_calls_total', 'Total calls to ramin iamge stream (counter)')
@@ -41,11 +41,12 @@ def get_frame():
         camera.configure(config)
         camera.start()
         sleep(2)
-        image = camera.capture_image('main')
-        camera.stop()
+        image = BytesIO()
+        camera.capture_file(image, format='jpeg')
+        camera.close_preview()
+        camera.close()
+        image.seek(0)
         # image = Image.open(image)
-        ret, image = cv2.imencode('.jpg', image)
-        image = image.tobytes()
     except Exception as e:
         log(syslog.LOG_ERR, str(traceback.format_exc()))
         log(syslog.LOG_ERR, str(type(e)))
@@ -54,7 +55,7 @@ def get_frame():
         yield (type(e) + '\n' + str(e.args) + '\n' + str(traceback.format_exc()))
     finally:
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + image + b'\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + image.read() + b'\r\n')
 
 
 application = Flask(__name__)
