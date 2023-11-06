@@ -20,6 +20,7 @@ apps:
       - camera
       - media-control
       - hardware-observe
+      - opengl
     environment:
       FLASK_APP: ./server.py
       LC_ALL: C.UTF-8
