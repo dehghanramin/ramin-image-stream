@@ -6,20 +6,7 @@ version: git
 base: core22
 confinement: strict
 architectures:
-  - build-on: arm64
-
-
-plugs:
-  camera-media:
-    interface: custom-device
-    custom-device: camera-media-device
-
-  sysfs-mount:
-    interface: system-files
-    read:
-      - /sys/subsystem/media/devices
-      - /sys/bus/media/devices
-      - /sys/class/media/devices
+  - arm64
 
 
 apps:
@@ -28,14 +15,11 @@ apps:
     daemon: simple
     restart-condition: on-failure
     plugs:
-      - mount-observe
-      - camera-media
       - network
       - network-bind
+      - camera
       - media-control
       - hardware-observe
-      - opengl
-      - camera
     environment:
       FLASK_APP: ./server.py
       LC_ALL: C.UTF-8
